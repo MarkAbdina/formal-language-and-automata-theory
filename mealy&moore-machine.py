@@ -53,7 +53,7 @@ class MooreMachine(FiniteStateMachine):
 
 class MealyMachine(FiniteStateMachine):
     def __init__(self):
-        super().__init__(['A', 'B'], 'A')
+        super().__init__(['A', 'B', 'C'], 'A')
 
     def process(self, inp):
         self.reset()
@@ -74,6 +74,14 @@ class MealyMachine(FiniteStateMachine):
                     self.state = 'B'
                 else:
                     output += 'a'
+                    self.state = 'C'
+
+            elif self.state == 'C':
+                if ch == '0':
+                    output += 'b'
+                    self.state = 'B'
+                else:
+                    output += 'b'
                     self.state = 'A'
 
         print("\n--- Mealy Machine ---")
@@ -83,6 +91,18 @@ class MealyMachine(FiniteStateMachine):
 
 
 def main():
+    print("=" * 50)
+    print("EXAMPLE DEMO:")
+    example_input = "110011"
+    print(f"Sample Input: {example_input}")
+
+    moore = MooreMachine()
+    moore.process(example_input)
+
+    mealy = MealyMachine()
+    mealy.process(example_input)
+    print("=" * 50)
+
     while True:
         print("\n1. Moore Machine\n2. Mealy Machine\n3. Exit")
         choice = input("Choose: ").strip()
